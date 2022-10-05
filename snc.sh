@@ -24,8 +24,8 @@ fi
 
 INSTALL_DIR=crc-tmp-install-data
 CRC_VM_NAME=${CRC_VM_NAME:-crc}
-SNC_CLUSTER_MEMORY=${SNC_CLUSTER_MEMORY:-14336}
-SNC_CLUSTER_CPUS=${SNC_CLUSTER_CPUS:-6}
+SNC_CLUSTER_MEMORY=${SNC_CLUSTER_MEMORY:-16384}
+SNC_CLUSTER_CPUS=${SNC_CLUSTER_CPUS:-8}
 CRC_VM_DISK_SIZE=${CRC_VM_DISK_SIZE:-33285996544}
 BASE_DOMAIN=${CRC_BASE_DOMAIN:-testing}
 CRC_PV_DIR="/mnt/pv-data"
@@ -236,7 +236,7 @@ retry ${OC} -n openshift-cluster-version patch deploy cluster-version-operator -
 
 # Add exposed registry CA to VM
 retry ${OC} extract secret/router-ca --keys=tls.crt -n openshift-ingress-operator --confirm
-retry ${OC} create configmap registry-certs --from-file=default-route-openshift-image-registry.apps-crc.testing=tls.crt -n openshift-config
+retry ${OC} create configmap registry-certs --from-file=default-route-openshift-image-registry.okd.sutmpownlabs.net=tls.crt -n openshift-config
 retry ${OC} patch image.config.openshift.io cluster -p '{"spec": {"additionalTrustedCA": {"name": "registry-certs"}}}' --type merge
 
 # Remove the machine config for chronyd to make it active again
