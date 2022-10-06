@@ -11,3 +11,4 @@ export TF_VAR_libvirt_bootstrap_memory=16384
 export LIBGUESTFS_BACKEND=direct
 export KUBECONFIG=${CRC_DIR}/snc/crc-tmp-install-data/auth/kubeconfig
 export OC=${CRC_DIR}/snc/openshift-clients/linux/oc
+export CRC_BASE_DOMAIN=stumptownlabs.net
